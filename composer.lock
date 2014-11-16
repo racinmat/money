@@ -4,25 +4,25 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "76c0f9f0bf8206802b28b176d5c368e4",
+    "hash": "689b059a32ee969c29a435e96da7a341",
     "packages": [
         {
             "name": "azathoth/money-math",
-            "version": "dev-master",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/racinmat/money-math-php.git",
-                "reference": "bdb9dbf024ca18d254d330a25d92eebc265cd6b4"
+                "reference": "99c823f9d467f5d50795e04d0899a66b4d50b617"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/racinmat/money-math-php/zipball/bdb9dbf024ca18d254d330a25d92eebc265cd6b4",
-                "reference": "bdb9dbf024ca18d254d330a25d92eebc265cd6b4",
+                "url": "https://api.github.com/repos/racinmat/money-math-php/zipball/99c823f9d467f5d50795e04d0899a66b4d50b617",
+                "reference": "99c823f9d467f5d50795e04d0899a66b4d50b617",
                 "shasum": ""
             },
             "require": {
                 "ext-gmp": "*",
-                "nette/utils": "2.2.x-dev",
+                "nette/utils": "2.2.*",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -60,7 +60,7 @@
                 "money",
                 "precision"
             ],
-            "time": "2014-11-16 18:34:08"
+            "time": "2014-11-16 20:22:30"
         },
         {
             "name": "doctrine/annotations",
@@ -1639,7 +1639,7 @@
         },
         {
             "name": "nette/utils",
-            "version": "2.2.x-dev",
+            "version": "v2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
@@ -2441,10 +2441,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "nette/utils": 20,
-        "azathoth/money-math": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
