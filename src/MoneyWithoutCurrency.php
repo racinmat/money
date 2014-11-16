@@ -208,7 +208,7 @@ class MoneyWithoutCurrency extends Object {
             $results[] = new MoneyWithoutCurrency($share);
             $remainder = $remainder->subtract($share);
         }
-        for ($i = 0; $remainder > 0; $i++) {
+        for ($i = 0; $remainder->isPositive(); $i++) {
             $results[$i] = $results[$i]->amount->add(1);
             $remainder = $remainder->subtract(1);
         }
@@ -235,7 +235,7 @@ class MoneyWithoutCurrency extends Object {
             $results[$i] = $this->newInstance($amount);
         }
 
-        for ($i = 0; $i < $this->amount->modulo($n); $i++) {
+        for ($i = 0; $i < $this->amount->modulo($n)->integerValue(); $i++) {
             $results[$i]->amount = $results[$i]->amount->add(1);
         }
 
