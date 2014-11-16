@@ -41,6 +41,10 @@ class MoneyWithoutCurrency extends Object {
         $this->amount = Decimal2::from($amount);
     }
 
+    public static function from($amount){
+        return new MoneyWithoutCurrency($amount);
+    }
+
     /**
      * Returns a new Money instance based on the current one using the Currency
      *
