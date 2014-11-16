@@ -17,7 +17,7 @@
     "require": {
         "php": ">=5.3.3",
         "nette/utils": "2.2.*",
-        "azathoth/money-math": "0.1.4",
+        "azathoth/money-math": "@dev",
         "kdyby/doctrine": "2.1.*"
     },
     "require-dev": {
