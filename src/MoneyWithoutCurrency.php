@@ -22,7 +22,7 @@ use UnderflowException;
  *
  * @author Mathias Verraes
  */
-class Money extends Object {
+class MoneyWithoutCurrency extends Object {
 
     /**
      * Internal value
@@ -32,19 +32,13 @@ class Money extends Object {
     private $amount;
 
     /**
-     * @var Currency
-     */
-    private $currency;
-
-    /**
      * @param int|Decimal2  $amount   Amount, expressed in the smallest units of $currency (eg cents)
      * @param Currency $currency
      *
      * @throws InvalidArgumentException If amount is not integer
      */
-    public function __construct($amount, Currency $currency) {
+    public function __construct($amount) {
         $this->amount = Decimal2::from($amount);
-        $this->currency = $currency;
     }
 
     /**
@@ -55,18 +49,7 @@ class Money extends Object {
      * @return Money
      */
     private function newInstance($amount) {
-        return new Money($amount, $this->currency);
-    }
-
-    /**
-     * Checks whether a Money has the same Currency as this
-     *
-     * @param Money $other
-     *
-     * @return boolean
-     */
-    public function isSameCurrency(Money $other) {
-        return $this->currency->equals($other->currency);
+        return new MoneyWithoutCurrency($amount);
     }
 
     /**
@@ -74,11 +57,6 @@ class Money extends Object {
      *
      * @throws InvalidArgumentException If $other has a different currency
      */
-    private function assertSameCurrency(Money $other) {
-        if (!$this->isSameCurrency($other)) {
-            throw new InvalidArgumentException('Currencies must be identical');
-        }
-    }
 
     /**
      * Checks whether the value represented by this object equals to the other
@@ -87,8 +65,8 @@ class Money extends Object {
      *
      * @return boolean
      */
-    public function equals(Money $other) {
-        return $this->isSameCurrency($other) && $this->amount->compare($other->amount) == 0;
+    public function equals(MoneyWithoutCurrency $other) {
+        return $this->amount->compare($other->amount) == 0;
     }
 
     /**
@@ -100,8 +78,7 @@ class Money extends Object {
      *
      * @return int
      */
-    public function compare(Money $other) {
-        $this->assertSameCurrency($other);
+    public function compare(MoneyWithoutCurrency $other) {
         $result = $this->amount->compare($other->amount);
         if ($result < 0) {
             return -1;
@@ -119,7 +96,7 @@ class Money extends Object {
      *
      * @return boolean
      */
-    public function greaterThan(Money $other) {
+    public function greaterThan(MoneyWithoutCurrency $other) {
         return 1 == $this->compare($other);
     }
 
@@ -130,7 +107,7 @@ class Money extends Object {
      *
      * @return boolean
      */
-    public function lessThan(Money $other) {
+    public function lessThan(MoneyWithoutCurrency $other) {
         return -1 == $this->compare($other);
     }
 
@@ -144,15 +121,6 @@ class Money extends Object {
     }
 
     /**
-     * Returns the currency of this object
-     *
-     * @return Currency
-     */
-    public function getCurrency() {
-        return $this->currency;
-    }
-
-    /**
      * Returns a new Money object that represents
      * the sum of this and an other Money object
      *
@@ -160,8 +128,7 @@ class Money extends Object {
      *
      * @return Money
      */
-    public function add(Money $addend) {
-        $this->assertSameCurrency($addend);
+    public function add(MoneyWithoutCurrency $addend) {
         $amount = $this->amount->add($addend->amount);
         return $this->newInstance($amount);
     }
@@ -174,8 +141,7 @@ class Money extends Object {
      *
      * @return Money
      */
-    public function subtract(Money $subtrahend) {
-        $this->assertSameCurrency($subtrahend);
+    public function subtract(MoneyWithoutCurrency $subtrahend) {
         $amount = $this->amount->subtract($subtrahend->amount);
         return $this->newInstance($amount);
     }
@@ -192,55 +158,6 @@ class Money extends Object {
     }
 
     /**
-     * Asserts that an integer value didn't become something else
-     * (after some arithmetic operation)
-     *
-     * @param numeric $amount
-     *
-     * @throws OverflowException If integer overflow occured
-     * @throws UnderflowException If integer underflow occured
-     */
-    private function assertIntegerBounds($amount) {
-        if ($amount > PHP_INT_MAX) {
-            throw new OverflowException;
-        } elseif ($amount < ~PHP_INT_MAX) {
-            throw new UnderflowException;
-        }
-    }
-
-    /**
-     * Casts an amount to integer ensuring that an overflow/underflow did not occur
-     *
-     * @param numeric $amount
-     *
-     * @return int
-     */
-    private function castInteger($amount) {
-        $this->assertIntegerBounds($amount);
-        return intval($amount);
-    }
-
-    /**
-     * Asserts that rounding mode is a valid integer value
-     *
-     * @param int $roundingMode
-     *
-     * @throws InvalidArgumentException If $roundingMode is not valid
-     */
-    private function assertRoundingMode($roundingMode) {
-        if (!in_array(
-            $roundingMode,
-            array(self::ROUND_HALF_DOWN, self::ROUND_HALF_EVEN, self::ROUND_HALF_ODD, self::ROUND_HALF_UP)
-        )) {
-            throw new InvalidArgumentException(
-                'Rounding mode should be Money::ROUND_HALF_DOWN | ' .
-                'Money::ROUND_HALF_EVEN | Money::ROUND_HALF_ODD | ' .
-                'Money::ROUND_HALF_UP'
-            );
-        }
-    }
-
-    /**
      * Returns a new Money object that represents
      * the multiplied value by the given factor
      *
@@ -249,21 +166,10 @@ class Money extends Object {
      *
      * @return Money
      */
-    public function multiply($multiplier, $roundingMode = self::ROUND_HALF_UP) {
+    public function multiply($multiplier) {
         $this->assertOperand($multiplier);
-        $this->assertRoundingMode($roundingMode);
         $product = $this->amount->multiplyBy($multiplier);
         return $this->newInstance($product);
-    }
-
-    /**
-     * @param Currency $targetCurrency
-     * @param float|int $conversionRate
-     * @return Money
-     */
-    public function convert(Currency $targetCurrency, $conversionRate) {
-        $amount = $this->amount->multiply($conversionRate);
-        return new Money($amount, $targetCurrency);
     }
 
     /**
@@ -295,7 +201,7 @@ class Money extends Object {
 
         foreach ($ratios as $ratio) {
             $share = $this->amount->multiplyBy($ratio)->divide(Decimal2::from($total));
-            $results[] = new Money($share, $this->currency);
+            $results[] = new MoneyWithoutCurrency($share);
             $remainder = $remainder->subtract($share);
         }
         for ($i = 0; $remainder > 0; $i++) {
