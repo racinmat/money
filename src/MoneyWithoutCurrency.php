@@ -296,4 +296,8 @@ class MoneyWithoutCurrency extends Object {
 
         return (int) $units;
     }
+
+    public function __toString(){
+        return $this->amount->__toString();
+    }
 }
