@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "689b059a32ee969c29a435e96da7a341",
+    "hash": "96df5c9864fa7c432cdc96a8798a7200",
     "packages": [
         {
             "name": "azathoth/money-math",
-            "version": "0.1.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/racinmat/money-math-php.git",
-                "reference": "99c823f9d467f5d50795e04d0899a66b4d50b617"
+                "reference": "7389f3b749ca0892a89e03b2c7eb6bb951d845f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/racinmat/money-math-php/zipball/99c823f9d467f5d50795e04d0899a66b4d50b617",
-                "reference": "99c823f9d467f5d50795e04d0899a66b4d50b617",
+                "url": "https://api.github.com/repos/racinmat/money-math-php/zipball/7389f3b749ca0892a89e03b2c7eb6bb951d845f0",
+                "reference": "7389f3b749ca0892a89e03b2c7eb6bb951d845f0",
                 "shasum": ""
             },
             "require": {
@@ -60,7 +60,7 @@
                 "money",
                 "precision"
             ],
-            "time": "2014-11-16 20:22:30"
+            "time": "2014-11-16 22:47:58"
         },
         {
             "name": "doctrine/annotations",
@@ -2441,7 +2441,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "azathoth/money-math": 20
+    },
     "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
