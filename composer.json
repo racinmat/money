@@ -13,8 +13,8 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "ikr/money-math": "v0.1.2",
-        "nette/utils": "2.2.x-dev"
+        "nette/utils": "2.2.x-dev",
+        "azathoth/money-math": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*"

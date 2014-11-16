@@ -4,24 +4,25 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "89ebb169e17ece51eedb6160ac57f4a3",
+    "hash": "42ccf0d1514a72bdf192f9bf0e66f91a",
     "packages": [
         {
-            "name": "ikr/money-math",
-            "version": "v0.1.2",
+            "name": "azathoth/money-math",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ikr/money-math-php.git",
-                "reference": "0f868143417a94003e8d38237c492b1ed4006a6a"
+                "url": "https://github.com/racinmat/money-math-php.git",
+                "reference": "bdb9dbf024ca18d254d330a25d92eebc265cd6b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ikr/money-math-php/zipball/0f868143417a94003e8d38237c492b1ed4006a6a",
-                "reference": "0f868143417a94003e8d38237c492b1ed4006a6a",
+                "url": "https://api.github.com/repos/racinmat/money-math-php/zipball/bdb9dbf024ca18d254d330a25d92eebc265cd6b4",
+                "reference": "bdb9dbf024ca18d254d330a25d92eebc265cd6b4",
                 "shasum": ""
             },
             "require": {
                 "ext-gmp": "*",
+                "nette/utils": "2.2.x-dev",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -41,6 +42,9 @@
                 {
                     "name": "Ivan Krechetov",
                     "email": "ivan.krechetov@gmail.com"
+                },
+                {
+                    "name": "Matěj Račinský"
                 }
             ],
             "description": "gmp-based arbitrary precision operations on currency amounts \"XXX.YY\"; because floats are BAD for representing money",
@@ -56,7 +60,7 @@
                 "money",
                 "precision"
             ],
-            "time": "2013-09-04 14:16:56"
+            "time": "2014-11-16 18:34:08"
         },
         {
             "name": "nette/utils",
@@ -862,7 +866,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "nette/utils": 20
+        "nette/utils": 20,
+        "azathoth/money-math": 20
     },
     "prefer-stable": false,
     "platform": {
