@@ -209,7 +209,7 @@ class MoneyWithoutCurrency extends Object {
             $remainder = $remainder->subtract($share);
         }
         for ($i = 0; $remainder->isPositive(); $i++) {
-            $results[$i] = $results[$i]->amount->add(1);
+            $results[$i] = MoneyWithoutCurrency::from($results[$i]->amount->add(1));
             $remainder = $remainder->subtract(1);
         }
         return $results;
