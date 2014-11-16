@@ -12,6 +12,7 @@
 namespace Money;
 
 use InvalidArgumentException;
+use MoneyMath\Decimal2;
 use OverflowException;
 use UnderflowException;
 use UnexpectedValueException;
@@ -21,8 +22,7 @@ use UnexpectedValueException;
  *
  * @author Mathias Verraes
  */
-class Money
-{
+class Money {
     const ROUND_HALF_UP   = PHP_ROUND_HALF_UP;
     const ROUND_HALF_DOWN = PHP_ROUND_HALF_DOWN;
     const ROUND_HALF_EVEN = PHP_ROUND_HALF_EVEN;
@@ -46,31 +46,9 @@ class Money
      *
      * @throws InvalidArgumentException If amount is not integer
      */
-    public function __construct($amount, Currency $currency)
-    {
-        if (!is_int($amount)) {
-            throw new InvalidArgumentException('Amount must be an integer');
-        }
-
-        $this->amount = $amount;
+    public function __construct($amount, Currency $currency) {
+        $this->amount = new Decimal2($amount);
         $this->currency = $currency;
-    }
-
-    /**
-     * Convenience factory method for a Money object
-     *
-     * <code>
-     * $fiveDollar = Money::USD(500);
-     * </code>
-     *
-     * @param string $method
-     * @param array  $arguments
-     *
-     * @return Money
-     */
-    public static function __callStatic($method, $arguments)
-    {
-        return new Money($arguments[0], new Currency($method));
     }
 
     /**
@@ -80,8 +58,7 @@ class Money
      *
      * @return Money
      */
-    private function newInstance($amount)
-    {
+    private function newInstance($amount) {
         return new Money($amount, $this->currency);
     }
 
@@ -118,7 +95,7 @@ class Money
      */
     public function equals(Money $other)
     {
-        return $this->isSameCurrency($other) && $this->amount == $other->amount;
+        return $this->isSameCurrency($other) && $this->amount->cm == $other->amount;
     }
 
     /**
