@@ -16,9 +16,9 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "nette/utils": "~2.2",
+        "nette/utils": "2.2.*",
         "azathoth/money-math": "dev-master",
-        "kdyby/doctrine": "~2.1"
+        "kdyby/doctrine": "2.1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*"
