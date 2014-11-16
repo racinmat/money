@@ -1,5 +1,5 @@
 {
-    "name": "mathiasverraes/money",
+    "name": "azathoth/money",
     "description": "PHP implementation of Fowler's Money pattern",
     "keywords": [ "Money", "Value Object", "Generic Sub-domain", "domain-driven design", "DDD" ],
     "homepage": "http://verraes.net/2011/04/fowler-money-pattern-in-php/",
@@ -9,6 +9,9 @@
             "name": "Mathias Verraes",
             "email": "mathias@verraes.net",
             "homepage": "http://verraes.net"
+        },
+        {
+            "name": "Matěj Račinský"
         }
     ],
     "require": {
