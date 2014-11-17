@@ -30,13 +30,18 @@ class Credits extends Object {
     private $amount;
 
     /**
-     * @param int|DecimalWholeNumbers  $amount   Amount, expressed in the smallest units of $currency (eg cents)
+     * @param int|DecimalWholeNumbers|string|Credits  $amount   Amount, expressed in the smallest units of $currency (eg cents)
      * @param Currency $currency
      *
      * @throws InvalidArgumentException If amount is not integer
      */
     public function __construct($amount) {
-        $this->amount = DecimalWholeNumbers::from($amount);
+        if (($amount instanceof Credits) || ($amount instanceof DecimalWholeNumbers)) {
+            $stringRepresentation = $amount->__toString();
+        } else {
+            $stringRepresentation = $amount;
+        }
+        $this->amount = DecimalWholeNumbers::from($stringRepresentation);
     }
 
     public static function from($amount){
